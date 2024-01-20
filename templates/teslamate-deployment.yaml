@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.teslamate.name }}
+  name: {{ .Values.teslamate.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.teslamate.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.teslamate.name }}
+    spec:
+      containers:
+        - name: {{ .Values.teslamate.name }}
+          image: {{ .Values.teslamate.image }}
+          ports:
+            - containerPort: {{ .Values.teslamate.port }}
+              name: {{ .Values.teslamate.portName }}
+              protocol: TCP
+          securityContext:
+            capabilities:
+              drop:
+                - all
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.teslamate.envName }}
+            - secretRef:
+                name: {{ .Values.teslamate.secretName }}

@@ -1,0 +1,22 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.teslamate.envName }}
+data:
+  DATABASE_HOST: {{ .Values.db.host }}
+  DATABASE_PORT: "{{ .Values.db.port }}"
+  DATABASE_NAME: {{ .Values.db.database }}
+  DATABASE_USER: {{ .Values.db.user }}
+  DATABASE_SSL: "noverify"
+  TZ: {{ .Values.teslamate.tz }}
+  DISABLE_MQTT: "true"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.teslamate.secretName }}
+type: Opaque
+stringData:
+  DATABASE_PASS: {{ .Values.db.password }}
+  ENCRYPTION_KEY: {{ .Values.teslamate.encryptionKey }}

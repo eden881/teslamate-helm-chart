@@ -1,0 +1,28 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.grafana.envName }}
+data:
+  DATABASE_HOST: {{ .Values.db.host }}
+  DATABASE_NAME: {{ .Values.db.database }}
+  DATABASE_USER: {{ .Values.db.user }}
+  DATABASE_SSL_MODE: {{ .Values.db.sslMode }}
+  DATABASE_PORT: "{{ .Values.db.port }}"
+  GF_SECURITY_ADMIN_USER: {{ .Values.grafana.username }}
+  GF_DATABASE_TYPE: postgres
+  GF_DATABASE_HOST: "{{ .Values.grafana.controlDb.host }}:{{ .Values.grafana.controlDb.port }}"
+  GF_DATABASE_NAME: {{ .Values.grafana.controlDb.database }}
+  GF_DATABASE_USER: {{ .Values.grafana.controlDb.user }}
+  GF_DATABASE_SSL_MODE: {{ .Values.grafana.controlDb.sslMode }}
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.grafana.secretName }}
+type: Opaque
+stringData:
+  DATABASE_PASS: {{ .Values.db.password }}
+  GF_SECURITY_ADMIN_PASSWORD: {{ .Values.grafana.password }}
+  GF_DATABASE_PASSWORD: {{ .Values.grafana.controlDb.password }}

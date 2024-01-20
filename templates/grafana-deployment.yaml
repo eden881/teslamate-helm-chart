@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.grafana.name }}
+  name: {{ .Values.grafana.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.grafana.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.grafana.name }}
+    spec:
+      containers:
+        - name: {{ .Values.grafana.name }}
+          image: {{ .Values.grafana.image }}
+          ports:
+            - containerPort: {{ .Values.grafana.port }}
+              name: {{ .Values.grafana.portName }}
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.grafana.envName }}
+            - secretRef:
+                name: {{ .Values.grafana.secretName }}

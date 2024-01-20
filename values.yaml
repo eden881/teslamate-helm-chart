@@ -1,0 +1,36 @@
+teslamate:
+  name: teslamate
+  envName: teslamate-env
+  secretName: teslamate-secret
+  port: 4000
+  externalPort: 80
+  portName: teslamate-p
+  image: teslamate/teslamate:latest
+  tz: PLACEHOLDER
+  encryptionKey: PLACEHOLDER
+
+grafana:
+  name: grafana
+  envName: grafana-env
+  secretName: grafana-secret
+  port: 3000
+  externalPort: 80
+  portName: grafana-p
+  image: teslamate/grafana:latest
+  username: admin
+  password: PLACEHOLDER
+  controlDb:
+    port: PLACEHOLDER
+    host: PLACEHOLDER
+    database: teslamate-grafana
+    user: PLACEHOLDER
+    password: PLACEHOLDER
+    sslMode: PLACEHOLDER
+
+db:
+  port: PLACEHOLDER
+  host: PLACEHOLDER
+  database: teslamate
+  user: PLACEHOLDER
+  password: PLACEHOLDER
+  sslMode: PLACEHOLDER
